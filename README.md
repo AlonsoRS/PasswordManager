@@ -12,10 +12,13 @@ Features include:
 - User friendly interface
 - Save unlimited amount of credentials
 
-User stories:
+## User stories:
 - As a user, I want to be able to create a Collection \\
 - As a user, I want to be able to create a User
 - As a user, I want to be able to add a User to a Collection
 - As a user, I want to be able to add a username, password and website to a User
 - As a user, I want to be able to see the username, password and website i have set for a User
 - As a user, i want to easily copy to my clipboard the website from a User
+- As a user, i want to change the name, password or website from a User.
+- As a user, i want to see the date that i added a User to a collection
+- As a user, i want to generate a random Password for a User
