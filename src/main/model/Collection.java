@@ -41,7 +41,7 @@ public class Collection {
     public ArrayList<User> getUserByUsername(String usernameSearch) {
         ArrayList<User> result = new ArrayList<>();
         for (User user : users) {
-            if (user.getUsername() == usernameSearch) {
+            if (user.getUsername().equals(usernameSearch)) {
                 result.add(user);
             }
         }
