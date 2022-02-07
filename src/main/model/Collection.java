@@ -4,39 +4,47 @@ import java.util.ArrayList;
 
 //Represents a collection of Users
 public class Collection {
-
+    private ArrayList<User> users;
+    private String name;
 
     // MODIFIES: this
     // EFFECT: initializes empty list
     //         name is set to collectionName
-    public Collection(String collectionName){
-        //stub
+    public Collection(String collectionName) {
+        users = new ArrayList<>();
+        name = collectionName;
 
     }
 
     public ArrayList<User> getCollection() {
-        return null; // stub
+        return users;
     }
 
     public String getCollectionName() {
-        return null; // stub
+        return name;
     }
 
     // MODIFIES: this
     // EFFECT: sets name to newName
     public void setCollectionName(String newName) {
-        // stub
+        name = newName;
     }
 
     // MODIFIES: this
     // EFFECT: adds newUser to Users
     public void addUser(User newUser) {
-        //stub
+        users.add(newUser);
     }
 
     // EFFECTS: returns all the User that have usernameSearch as their username in Users
     //          else, returns null
     public ArrayList<User> getUserByUsername(String usernameSearch) {
-        return null; //stub
+        ArrayList<User> result = new ArrayList<>();
+        for (User user : users) {
+            if (user.getUsername() == usernameSearch) {
+                result.add(user);
+            }
+        }
+        return result;
     }
 }
