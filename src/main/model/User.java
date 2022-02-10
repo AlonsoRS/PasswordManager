@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-//Represents a user having a username, password, website and date of creation
+//Represents a User having a username, password, website and date of creation
 public class User {
     private String username;
     private Password password;

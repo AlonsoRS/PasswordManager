@@ -8,7 +8,7 @@ public class Collection {
     private String name;
 
     // MODIFIES: this
-    // EFFECT: initializes empty list
+    // EFFECT: initializes users as empty list
     //         name is set to collectionName
     public Collection(String collectionName) {
         users = new ArrayList<>();
@@ -36,7 +36,7 @@ public class Collection {
         users.add(newUser);
     }
 
-    // EFFECTS: returns all the Users that have usernameSearch as their username
+    // EFFECTS: returns all the Users in Collection that have usernameSearch as their username
     //          else, returns empty list
     public ArrayList<User> getUserByUsername(String usernameSearch) {
         ArrayList<User> result = new ArrayList<>();

@@ -4,28 +4,32 @@ import model.Collection;
 import model.CollectionManager;
 import model.User;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// Class structure and code modified from TellerApp
 // Manages console based interface for the Password Manager app
 public class App {
     CollectionManager manager;
     Scanner input;
 
-    // EFFECT: Initializes fields and starts the app
+
+    // EFFECTS: Starts the app
     public App() {
+        initializeFields();
+        runPasswordManager();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initializes fields
+    private void initializeFields() {
         manager = new CollectionManager();
         input = new Scanner(System.in);
-
-        runPasswordManager();
     }
 
 
     // MODIFIES: this
-    // EFFECTS:processes user's input
-    //Code extracted from TellerApp
+    // EFFECTS: processes user's input
+    // Modified code from TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     private void runPasswordManager() {
         String option;
 
@@ -44,7 +48,9 @@ public class App {
 
     }
 
-    // EFFECTS:
+    // MODIFIES: this
+    // EFFECTS: process user's chosen option
+    // Code taken from TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     private void processOption(String option) {
         if (option.equals("a")) {
             displayCollections();
@@ -69,7 +75,7 @@ public class App {
 
     // EFFECTS: From given Collections, prints:
     //           -the Collection name
-    //           -Only the Users that match username
+    //           -the Users that match username
     private void printUserInCollection(ArrayList<Collection> collections, String username) {
         for (Collection coll: collections) {
             System.out.print(coll.getCollectionName() + "\n");
@@ -77,8 +83,8 @@ public class App {
         }
     }
 
-
-    //EFFECT: adds a new User to a collection
+    //MODIFIES: this
+    //EFFECT: adds a new User to a Collection
     private void addNewUserToCollection() {
         Collection collection = selectCollection(chooseCollection());
 
@@ -92,17 +98,19 @@ public class App {
 
     }
 
-    // EFFECT: returns chosen collection
+    // EFFECT: Finds and returns Collection with chosenCollection as name from manager
     private Collection selectCollection(String chosenCollection) {
         return manager.findCollection(chosenCollection);
     }
 
-    // EFFECTS: Records user selection of Collection
+    // MODIFIES: this
+    // EFFECTS: Returns user's selection of Collection
     private String chooseCollection() {
         System.out.println("Choose a Collection for the new User: ");
         printCollectionNames();
         return input.next();
     }
+
 
     // EFFECTS: prints the names of all Collections
     private void printCollectionNames() {
@@ -111,6 +119,7 @@ public class App {
         }
     }
 
+    // MODIFIES: this
     // EFFECT: creates new User
     private User createUser() {
         String username;
@@ -133,7 +142,8 @@ public class App {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates a new Collection with input as the collection name
+    // EFFECTS: creates a new Collection with input as the collection name,
+    //          and adds new Collection to manager
     private void addNewCollection() {
         System.out.print("Name of new collection: ");
         String collectionName = input.next();
@@ -143,7 +153,7 @@ public class App {
         System.out.println("Collection created!");
     }
 
-    //EFFECTS prints each Collection's name with their User's information
+    //EFFECTS: prints all Collection's name with their User's information
     private void displayCollections() {
         if (manager.getCollections().isEmpty()) {
             System.out.println("No collections have been created");
@@ -172,8 +182,9 @@ public class App {
         System.out.print("\n");
     }
 
-    //CITE???
+
     //EFFECTS: displays the options available for the user of the App
+    //Code taken from TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     private void displayMenu() {
         System.out.println("Options:");
         System.out.println("\ta." + "Display Collections");

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CollectionManagerTest {
     CollectionManager test;
@@ -69,12 +70,13 @@ public class CollectionManagerTest {
 
     @Test
     void testFindCollection() {
-        assertEquals(null, test.findCollection("Banking"));
+        assertNull(test.findCollection("Banking"));
 
         test.addCollection(new Collection("Banking"));
         test.addCollection(new Collection("Entertainment"));
         test.addCollection(new Collection("Academics"));
         assertEquals("Banking",test.findCollection("Banking").getCollectionName());
+        assertNull(test.findCollection("Government"));
 
     }
 }
