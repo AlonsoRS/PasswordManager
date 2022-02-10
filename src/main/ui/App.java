@@ -19,25 +19,6 @@ public class App {
         manager = new CollectionManager();
         input = new Scanner(System.in);
 
-        //DELETE AFTER ---------------------------
-//        Collection collection1 = new Collection("Banking");
-//        Collection collection2 = new Collection("Fun");
-//
-//        User user1 = new User("Pablo33", "1234");
-//        user1.setWebsite("google");
-//        User user2 = new User("Juan", "333");
-//        user2.setWebsite("piazza");
-//        collection1.addUser(user1);
-//        collection1.addUser(user2);
-//
-//        User user3 = new User("Pablo33", "diff343");
-//        user3.setWebsite("gmail");
-//        collection2.addUser(user3);
-//
-//        manager.addCollection(collection1);
-//        manager.addCollection(collection2);
-        //DELETE AFTER ---------------------------
-
         runPasswordManager();
     }
 
