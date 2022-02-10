@@ -21,7 +21,7 @@ public class CollectionManager {
     }
 
     //EFFECTS: returns list of Collection
-    public ArrayList<Collection> getList() {
+    public ArrayList<Collection> getCollections() {
         return list;
     }
 

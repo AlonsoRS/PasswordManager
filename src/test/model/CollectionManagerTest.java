@@ -17,17 +17,17 @@ public class CollectionManagerTest {
 
     @Test
     void testConstructor() {
-        assertEquals(0, test.getList().size());
+        assertEquals(0, test.getCollections().size());
     }
 
     @Test
     void testAddCollection() {
         test.addCollection(new Collection("Academic"));
-        assertEquals(1, test.getList().size());
-        assertEquals("Academic", test.getList().get(0).getCollectionName());
+        assertEquals(1, test.getCollections().size());
+        assertEquals("Academic", test.getCollections().get(0).getCollectionName());
 
         test.addCollection(new Collection("Banking"));
-        assertEquals("Banking", test.getList().get(1).getCollectionName());
+        assertEquals("Banking", test.getCollections().get(1).getCollectionName());
     }
 
     @Test
@@ -56,15 +56,15 @@ public class CollectionManagerTest {
 
         assertEquals(1, foundIn1.size());
         assertEquals("E-shop", foundIn1.get(0).getCollectionName());
-        assertEquals("Jim47", foundIn1.get(0).getCollection().get(0).getUsername());
+        assertEquals("Jim47", foundIn1.get(0).getUsers().get(0).getUsername());
 
         assertEquals(2, foundIn2.size());
         assertEquals("Entertainment", foundIn2.get(0).getCollectionName());
         assertEquals("E-shop", foundIn2.get(1).getCollectionName());
-        assertEquals("Pablo8", foundIn2.get(0).getCollection().get(0).getUsername());
-        assertEquals("890", foundIn2.get(0).getCollection().get(0).getPassword());
-        assertEquals("Pablo8", foundIn2.get(1).getCollection().get(1).getUsername());
-        assertEquals("123", foundIn2.get(1).getCollection().get(1).getPassword());
+        assertEquals("Pablo8", foundIn2.get(0).getUsers().get(0).getUsername());
+        assertEquals("890", foundIn2.get(0).getUsers().get(0).getPassword());
+        assertEquals("Pablo8", foundIn2.get(1).getUsers().get(1).getUsername());
+        assertEquals("123", foundIn2.get(1).getUsers().get(1).getPassword());
 
     }
 }

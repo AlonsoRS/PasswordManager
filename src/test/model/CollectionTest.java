@@ -3,8 +3,6 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CollectionTest {
@@ -17,7 +15,7 @@ public class CollectionTest {
 
     @Test
     void testConstructor() {
-        assertEquals(0, testCollection.getCollection().size());
+        assertEquals(0, testCollection.getUsers().size());
         assertEquals("Entertainment", testCollection.getCollectionName());
 
         testCollection.setCollectionName("Banking");
@@ -27,12 +25,12 @@ public class CollectionTest {
     @Test
     void testAddUser() {
         testCollection.addUser(new User("Joe6", "123"));
-        assertEquals(1, testCollection.getCollection().size());
+        assertEquals(1, testCollection.getUsers().size());
 
         testCollection.addUser(new User("Moe3", "124"));
-        assertEquals(2, testCollection.getCollection().size());
+        assertEquals(2, testCollection.getUsers().size());
 
-        assertEquals("Moe3", testCollection.getCollection().get(1).getUsername());
+        assertEquals("Moe3", testCollection.getUsers().get(1).getUsername());
 
     }
 

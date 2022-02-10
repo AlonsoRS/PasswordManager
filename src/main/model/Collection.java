@@ -16,7 +16,7 @@ public class Collection {
 
     }
 
-    public ArrayList<User> getCollection() {
+    public ArrayList<User> getUsers() {
         return users;
     }
 
