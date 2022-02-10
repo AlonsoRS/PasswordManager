@@ -18,15 +18,19 @@ public class App {
     public App() {
         manager = new CollectionManager();
         input = new Scanner(System.in);
+
+
+
         runPasswordManager();
     }
 
 
     // MODIFIES: this
-    // EFFECTS:
+    // EFFECTS:processes user's input
     //Code extracted from TellerApp
     private void runPasswordManager() {
         String option = null;
+
         while (true) {
             displayMenu();
             option = input.next();
@@ -58,12 +62,36 @@ public class App {
         }
     }
 
+    // EFFECTS: Prints only the Users that match user input with their respective Collection name
     private void searchUser() {
+        System.out.printf("Username to search: ");
+        String username = input.next();
+        printUserInCollection(manager.findUser(username), username);
     }
+
+    // EFFECTS: From given Collections, prints:
+    //           -the Collection name
+    //           -Only the Users that match username
+    private void printUserInCollection(ArrayList<Collection> collections, String username) {
+        for (Collection coll: collections) {
+            System.out.printf(coll.getCollectionName() + "\n");
+            printUsers(coll.getUserByUsername(username));
+        }
+    }
+
 
     //EFFECT: adds a new User to a collection
     private void addNewUserToCollection() {
         Collection collection = selectCollection(chooseCollection());
+
+        if (collection == null) {
+            System.out.printf("Collection not found, returning to main menu");
+            return;
+        }
+
+        collection.addUser(createUser());
+        System.out.printf("User added successfully!");
+        return;
 
     }
 
@@ -78,7 +106,7 @@ public class App {
         printCollectionNames();
         String selection = input.next();
 
-        return selection; //stub
+        return selection;
     }
 
     // EFFECTS: prints the names of all Collections
@@ -120,6 +148,7 @@ public class App {
         System.out.println("Collection created!");
     }
 
+    //EFFECTS prints each Collection's name with their User's information
     private void displayCollections() {
         if (manager.getCollections().isEmpty()) {
             System.out.println("No collections have been created");
@@ -139,13 +168,16 @@ public class App {
         }
     }
 
+
+    //EFFECT: prints given User
     private void printUser(User user) {
         System.out.println("\t" + " Username: " + user.getUsername());
         System.out.println("\t" + " Password: " +  user.getPassword());
         System.out.println("\t" + " Website: " + user.getWebsite());
+        System.out.printf("\n");
     }
 
-    //EFFECTS: displays the options available for the user
+    //EFFECTS: displays the options available for the user of the App
     private void displayMenu() {
         System.out.println("Options:");
         System.out.println("a." + "Display Collections");
