@@ -63,13 +63,13 @@ public class App {
 
     //EFFECT: adds a new User to a collection
     private void addNewUserToCollection() {
-        selectCollection(chooseCollection());
-
-
+        Collection collection = selectCollection(chooseCollection());
 
     }
 
-    private void selectCollection(String chooseCollection) {
+    // EFFECT: returns chosen collection
+    private Collection selectCollection(String chosenCollection) {
+        return manager.findCollection(chosenCollection);
     }
 
     // EFFECTS: Records user selection of Collection

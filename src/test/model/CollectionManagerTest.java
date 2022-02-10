@@ -31,7 +31,6 @@ public class CollectionManagerTest {
     }
 
     @Test
-
     void testFindUser() {
         assertEquals(0, test.findUser("Emp").size());
 
@@ -65,6 +64,17 @@ public class CollectionManagerTest {
         assertEquals("890", foundIn2.get(0).getUsers().get(0).getPassword());
         assertEquals("Pablo8", foundIn2.get(1).getUsers().get(1).getUsername());
         assertEquals("123", foundIn2.get(1).getUsers().get(1).getPassword());
+
+    }
+
+    @Test
+    void testFindCollection() {
+        assertEquals(null, test.findCollection("Banking"));
+
+        test.addCollection(new Collection("Banking"));
+        test.addCollection(new Collection("Entertainment"));
+        test.addCollection(new Collection("Academics"));
+        assertEquals("Banking",test.findCollection("Banking").getCollectionName());
 
     }
 }

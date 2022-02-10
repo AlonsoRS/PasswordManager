@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 // Manages the different Collections created by a User
 public class CollectionManager {
-    ArrayList<Collection> list;
+    private ArrayList<Collection> list;
 
     //EFFECTS: creates an empty list of Collections
     public CollectionManager() {
@@ -38,5 +38,16 @@ public class CollectionManager {
         }
 
         return result;
+    }
+
+    // EFFECTS: returns Collection that matches collectionName in list
+    //          if Collection is not found, return null
+    public Collection findCollection(String collectionName) {
+        for (Collection collection : list) {
+            if (collection.getCollectionName().equals(collectionName)) {
+                return collection;
+            }
+        }
+        return null;
     }
 }
