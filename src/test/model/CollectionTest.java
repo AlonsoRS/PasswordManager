@@ -40,6 +40,7 @@ public class CollectionTest {
     void testGetUserByUsername() {
         User find1 = new User("Om4456", "3232");
         User find2 = new User("Om4456", "1246");
+
         testCollection.addUser(new User("Joe6", "123"));
         testCollection.addUser(find1);
         testCollection.addUser(new User("Moe3", "124"));
@@ -51,5 +52,12 @@ public class CollectionTest {
 
         assertEquals("3232", testCollection.getUserByUsername("Om4456").get(0).getPassword());
         assertEquals("1246", testCollection.getUserByUsername("Om4456").get(1).getPassword());
+
+        Collection userNotFound = new Collection("Work");
+        assertEquals(0 , userNotFound.getUserByUsername("Mia5").size());
+
+        userNotFound.addUser(new User("Steve89", "4433"));
+        assertEquals(0 , userNotFound.getUserByUsername("Mia5").size());
+
     }
 }

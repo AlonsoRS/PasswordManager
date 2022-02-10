@@ -1,0 +1,42 @@
+package model;
+
+
+import java.sql.Array;
+import java.util.ArrayList;
+
+// Manages the different Collections created by a User
+public class CollectionManager {
+    ArrayList<Collection> list;
+
+    //EFFECTS: creates an empty list of Collections
+    public CollectionManager() {
+        list = new ArrayList<>();
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds newCollection to the list of Collections
+    public void addCollection(Collection newCollection) {
+        list.add(newCollection);
+
+    }
+
+    //EFFECTS: returns list of Collection
+    public ArrayList<Collection> getList() {
+        return list;
+    }
+
+    //EFFECTS: Returns all the Collections that have at least 1 User that matches searchUsername,
+    //         else returns empty list
+    public ArrayList<Collection> findUser(String searchUsername) {
+        ArrayList<Collection> result = new ArrayList<>();
+
+        for (Collection each : list) {
+            ArrayList<User> temp = each.getUserByUsername(searchUsername);
+            if (!temp.isEmpty()) {
+                result.add(each);
+            }
+        }
+
+        return result;
+    }
+}

@@ -36,8 +36,8 @@ public class Collection {
         users.add(newUser);
     }
 
-    // EFFECTS: returns all the User that have usernameSearch as their username in Users
-    //          else, returns null
+    // EFFECTS: returns all the Users that have usernameSearch as their username
+    //          else, returns empty list
     public ArrayList<User> getUserByUsername(String usernameSearch) {
         ArrayList<User> result = new ArrayList<>();
         for (User user : users) {
