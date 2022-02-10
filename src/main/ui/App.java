@@ -19,7 +19,24 @@ public class App {
         manager = new CollectionManager();
         input = new Scanner(System.in);
 
-
+        //DELETE AFTER ---------------------------
+//        Collection collection1 = new Collection("Banking");
+//        Collection collection2 = new Collection("Fun");
+//
+//        User user1 = new User("Pablo33", "1234");
+//        user1.setWebsite("google");
+//        User user2 = new User("Juan", "333");
+//        user2.setWebsite("piazza");
+//        collection1.addUser(user1);
+//        collection1.addUser(user2);
+//
+//        User user3 = new User("Pablo33", "diff343");
+//        user3.setWebsite("gmail");
+//        collection2.addUser(user3);
+//
+//        manager.addCollection(collection1);
+//        manager.addCollection(collection2);
+        //DELETE AFTER ---------------------------
 
         runPasswordManager();
     }
@@ -29,7 +46,7 @@ public class App {
     // EFFECTS:processes user's input
     //Code extracted from TellerApp
     private void runPasswordManager() {
-        String option = null;
+        String option;
 
         while (true) {
             displayMenu();
@@ -38,8 +55,8 @@ public class App {
             if (option.equals("e")) {
                 break;
             }
-
             processOption(option);
+            System.out.print("\n");
         }
 
         System.out.println("App closed");
@@ -64,7 +81,7 @@ public class App {
 
     // EFFECTS: Prints only the Users that match user input with their respective Collection name
     private void searchUser() {
-        System.out.printf("Username to search: ");
+        System.out.print("Username to search: ");
         String username = input.next();
         printUserInCollection(manager.findUser(username), username);
     }
@@ -74,7 +91,7 @@ public class App {
     //           -Only the Users that match username
     private void printUserInCollection(ArrayList<Collection> collections, String username) {
         for (Collection coll: collections) {
-            System.out.printf(coll.getCollectionName() + "\n");
+            System.out.print(coll.getCollectionName() + "\n");
             printUsers(coll.getUserByUsername(username));
         }
     }
@@ -85,13 +102,12 @@ public class App {
         Collection collection = selectCollection(chooseCollection());
 
         if (collection == null) {
-            System.out.printf("Collection not found, returning to main menu");
+            System.out.print("Collection not found, returning to main menu");
             return;
         }
 
         collection.addUser(createUser());
-        System.out.printf("User added successfully!");
-        return;
+        System.out.print("User added successfully!");
 
     }
 
@@ -104,9 +120,7 @@ public class App {
     private String chooseCollection() {
         System.out.println("Choose a Collection for the new User: ");
         printCollectionNames();
-        String selection = input.next();
-
-        return selection;
+        return input.next();
     }
 
     // EFFECTS: prints the names of all Collections
@@ -118,16 +132,16 @@ public class App {
 
     // EFFECT: creates new User
     private User createUser() {
-        String username = null;
-        String password = null;
-        String website = null;
+        String username;
+        String password;
+        String website;
 
         System.out.println("Enter the new User's information: ");
-        System.out.println("username: ");
+        System.out.print("\tusername: ");
         username = input.next();
-        System.out.println("password: ");
+        System.out.print("\tpassword: ");
         password = input.next();
-        System.out.println("website: ");
+        System.out.print("\twebsite: ");
         website = input.next();
 
         User user = new User(username, password);
@@ -140,9 +154,9 @@ public class App {
     // MODIFIES: this
     // EFFECTS: creates a new Collection with input as the collection name
     private void addNewCollection() {
-        System.out.println("Name of new collection: ");
-
+        System.out.print("Name of new collection: ");
         String collectionName = input.next();
+
         manager.addCollection(new Collection(collectionName));
 
         System.out.println("Collection created!");
@@ -174,17 +188,18 @@ public class App {
         System.out.println("\t" + " Username: " + user.getUsername());
         System.out.println("\t" + " Password: " +  user.getPassword());
         System.out.println("\t" + " Website: " + user.getWebsite());
-        System.out.printf("\n");
+        System.out.print("\n");
     }
 
+    //CITE???
     //EFFECTS: displays the options available for the user of the App
     private void displayMenu() {
         System.out.println("Options:");
-        System.out.println("a." + "Display Collections");
-        System.out.println("b." + "Add a new Collection");
-        System.out.println("c." + "Add a new user to a Collection");
-        System.out.println("d." + "Search Users by username");
-        System.out.println("e." + "quit");
+        System.out.println("\ta." + "Display Collections");
+        System.out.println("\tb." + "Add a new Collection");
+        System.out.println("\tc." + "Add a new user to a Collection");
+        System.out.println("\td." + "Search Users by username");
+        System.out.println("\te." + "quit");
 
     }
 
