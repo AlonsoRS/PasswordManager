@@ -5,12 +5,13 @@ import model.CollectionManager;
 import model.User;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 // Manages console based interface for the Password Manager app
 public class App {
-    CollectionManager manager;
-    Scanner input;
+    private CollectionManager manager;
+    private Scanner input;
 
 
     // EFFECTS: Starts the app
@@ -36,6 +37,7 @@ public class App {
         while (true) {
             displayMenu();
             option = input.next();
+            option = option.toLowerCase();
 
             if (option.equals("e")) {
                 break;
@@ -70,7 +72,13 @@ public class App {
     private void searchUser() {
         System.out.print("Username to search: ");
         String username = input.next();
-        printUserInCollection(manager.findUser(username), username);
+
+        ArrayList<Collection> found = manager.findUser(username);
+        if (found.isEmpty()) {
+            System.out.println("User not found");
+            return;
+        }
+        printUserInCollection(found, username);
     }
 
     // EFFECTS: From given Collections, prints:
@@ -84,8 +92,14 @@ public class App {
     }
 
     //MODIFIES: this
-    //EFFECT: adds a new User to a Collection
+    //EFFECT: if no Collections have been added or Collection is not found, return
+    //        else, adds a new User to a Collection
     private void addNewUserToCollection() {
+        if (manager.getCollections().isEmpty()) {
+            System.out.println("No collections have been created");
+            return;
+        }
+
         Collection collection = selectCollection(chooseCollection());
 
         if (collection == null) {
@@ -94,7 +108,7 @@ public class App {
         }
 
         collection.addUser(createUser());
-        System.out.print("User added successfully!");
+        System.out.print("User added successfully!\n");
 
     }
 
@@ -114,8 +128,10 @@ public class App {
 
     // EFFECTS: prints the names of all Collections
     private void printCollectionNames() {
+        int count = 0;
         for (Collection each : manager.getCollections()) {
-            System.out.println("\t" + each.getCollectionName());
+            count++;
+            System.out.println("\t" + count + ". " + each.getCollectionName());
         }
     }
 

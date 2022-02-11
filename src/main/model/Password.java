@@ -2,7 +2,7 @@ package model;
 
 // Represents the password of a User
 public class Password {
-    String password;
+    private String password;
 
     // MODIFIES: this
     // EFFECT: this.password is set to password
