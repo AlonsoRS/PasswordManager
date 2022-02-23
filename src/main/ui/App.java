@@ -30,7 +30,7 @@ public class App {
 
     // MODIFIES: this
     // EFFECTS: processes user's input
-    // Modified code from TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
+    // Modified code from TellerApp class: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     private void runPasswordManager() {
         String option;
 
@@ -52,7 +52,7 @@ public class App {
 
     // MODIFIES: this
     // EFFECTS: process user's chosen option
-    // Code taken from TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
+    // Code taken from TellerApp class: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     private void processOption(String option) {
         if (option.equals("a")) {
             displayCollections();
@@ -200,7 +200,7 @@ public class App {
 
 
     //EFFECTS: displays the options available for the user of the App
-    //Code taken from TellerApp: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
+    //Code taken from TellerApp class: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     private void displayMenu() {
         System.out.println("Options:");
         System.out.println("\ta." + "Display Collections");
