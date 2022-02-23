@@ -12,12 +12,16 @@ entertainment services such as Netflix or Facebook.
 
 
 ## Current User stories:
+P1:
 - As a user, I want to be able to create a Collection
 - As a user, I want to be able to add a User to a Collection
 - As a user, I want to be able to create a User with a name, password and website.
 - As a user, I want to be able to see the username, password and website of all Users in all Collections
 - As a user, I want to be able to search for all the Users that have a specific username
 
+P2:
+- As a user, I want to be able to save my Collections to file
+- As a user, I want to be able to load my Collections from file
 
 ## Future User stories:
 - As a user, i want to easily copy to my clipboard the website from a User
