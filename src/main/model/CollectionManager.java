@@ -1,6 +1,8 @@
 package model;
 
 
+import org.json.JSONObject;
+
 import java.sql.Array;
 import java.util.ArrayList;
 
@@ -49,5 +51,12 @@ public class CollectionManager {
             }
         }
         return null;
+    }
+
+    // EFFECTS: returns this as JSON object
+    // Modified code from WorkRoom class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        return json; //stub
     }
 }

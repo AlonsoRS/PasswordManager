@@ -2,12 +2,16 @@ package persistance;
 
 import model.CollectionManager;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 //Class taken from...
-//WHAT DOES THIS CLASS DOES
+//Represents a writer that writes JSON representation of CollectionManager
 public class JsonWriter {
-    String destination;
+    private String destination;
+    private PrintWriter writer;
+
 
     // EFFECTS: constructs writer to write to destination file
     // Code taken from JsonWriter class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
@@ -15,25 +19,32 @@ public class JsonWriter {
         destination = jsonFile;
     }
 
-    // MODIFIES:
-    // EFFECTS:
-    // CITATION
+    // MODIFIES: this
+    // EFFECTS: opens writer; throws FileNotFoundException if destination file cannot be open for writing
+    // Code taken from JsonWriter class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     public void open() throws FileNotFoundException {
-        //stub
+        writer = new PrintWriter(new File(destination));
     }
 
-    // MODIFIES:
-    // EFFECTS:
-    // CITATION
+    // MODIFIES: this
+    // EFFECTS: writes JSON file representing CollectionManager
+    // Code taken from JsonWriter class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     public void write(CollectionManager manager) {
         //stub
     }
 
-    // MODIFIES:
-    // EFFECTS:
-    // CITATION
+    // MODIFIES: this
+    // EFFECTS: closes writer
+    // Code taken from JsonWriter class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     public void close() {
         //stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: writes string to file
+    // Code taken from JsonWriter class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    private void saveToFile(String json) {
+        writer.print(json);
     }
 
 }
