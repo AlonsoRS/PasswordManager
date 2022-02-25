@@ -3,15 +3,21 @@ package ui;
 import model.Collection;
 import model.CollectionManager;
 import model.User;
+import persistance.JsonReader;
+import persistance.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 // Manages console based interface for the Password Manager app
 public class App {
+    private static final String JSON_STORE = "./data/users.json";
     private CollectionManager manager;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
 
     // EFFECTS: Starts the app
@@ -22,9 +28,12 @@ public class App {
 
     // MODIFIES: this
     // EFFECTS: initializes fields
+    // Modified code from WorkRoomApp class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     private void initializeFields() {
         manager = new CollectionManager();
         input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
 
@@ -39,7 +48,7 @@ public class App {
             option = input.next();
             option = option.toLowerCase();
 
-            if (option.equals("e")) {
+            if (option.equals("q")) {
                 break;
             }
             processOption(option);
@@ -65,6 +74,38 @@ public class App {
         }
         if (option.equals("d")) {
             searchUser();
+        }
+        if (option.equals("e")) {
+            saveCollections();
+        }
+        if (option.equals("f")) {
+            loadCollections();
+        }
+    }
+
+    // MODIFIES:
+    // EFFECTS:
+    // Code taken from WorkRoomApp class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    private void saveCollections() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(manager);
+            jsonWriter.close();
+            System.out.println("Saved Collections to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES:
+    // EFFECTS:
+    // Code taken from WorkRoomApp class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    private void loadCollections() {
+        try {
+            manager = jsonReader.read();
+            System.out.println("Loaded Collections from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 
@@ -207,7 +248,9 @@ public class App {
         System.out.println("\tb." + "Add a new Collection");
         System.out.println("\tc." + "Add a new user to a Collection");
         System.out.println("\td." + "Search Users by username");
-        System.out.println("\te." + "quit");
+        System.out.println("\te." + "Save Collections");
+        System.out.println("\tf." + "Load Collections");
+        System.out.println("\tq." + "Quit");
 
     }
 
