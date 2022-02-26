@@ -1,0 +1,29 @@
+{
+  "list": [
+    {
+      "users": [
+        {
+          "username" : "user1",
+          "password" : "123",
+          "website" : "www.gmail.com"
+        }
+      ],
+      "name": "Work"
+    },
+    {
+      "users": [
+        {
+          "username" : "user2",
+          "password" : "456",
+          "website" : "www.netflix.com"
+        },
+        {
+          "username" : "user3",
+          "password" : "567",
+          "website" : "www.youtube.com"
+        }
+      ],
+      "name": "Entertainment"
+    }
+  ]
+}

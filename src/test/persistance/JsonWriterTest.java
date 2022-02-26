@@ -85,12 +85,15 @@ public class JsonWriterTest {
 
             assertEquals("user1", test.getCollections().get(0).getUsers().get(0).getUsername());
             assertEquals("123", test.getCollections().get(0).getUsers().get(0).getPassword());
+            assertEquals("www.gmail.com", test.getCollections().get(0).getUsers().get(0).getWebsite());
 
             assertEquals("user2", test.getCollections().get(1).getUsers().get(0).getUsername());
             assertEquals("564", test.getCollections().get(1).getUsers().get(0).getPassword());
+            assertEquals("www.netflix.com", test.getCollections().get(1).getUsers().get(0).getWebsite());
 
             assertEquals("user3", test.getCollections().get(1).getUsers().get(1).getUsername());
             assertEquals("341", test.getCollections().get(1).getUsers().get(1).getPassword());
+            assertEquals("www.youtube.com", test.getCollections().get(1).getUsers().get(1).getWebsite());
 
         }
         catch (IOException e) {
