@@ -1,6 +1,7 @@
 package model;
 
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.Array;
@@ -57,6 +58,19 @@ public class CollectionManager {
     // Modified code from WorkRoom class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        return json; //stub
+        json.put("list", collectionsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns Collections on this CollectionManager as a JSON array
+    // Modified code from WorkRoom class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    private JSONArray collectionsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Collection c : list) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
     }
 }

@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 //Represents a collection of Users
@@ -46,5 +49,26 @@ public class Collection {
             }
         }
         return result;
+    }
+
+    // EFFECTS: returns this as JSON object
+    // Modified code from Thingy class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("users", usersToJson());
+        return json;
+    }
+
+    // EFFECTS: returns Users on this Collection as a JSON array
+    // Modified code from WorkRoom class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    private JSONArray usersToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (User u : users) {
+            jsonArray.put(u.toJson());
+        }
+
+        return jsonArray;
     }
 }

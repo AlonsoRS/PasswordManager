@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 
 //Represents a User having a username, password, website and date of creation
@@ -57,5 +59,18 @@ public class User {
     // EFFECTS: Changes this.password value to password
     public void setPassword(String password) {
         this.password.setPassword(password);
+    }
+
+
+    // EFFECTS: returns this as JSON object
+    // Modified code from Thingy class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+
+        json.put("username", username);
+        json.put("password", password.getPassword());
+        json.put("website", website);
+
+        return json;
     }
 }

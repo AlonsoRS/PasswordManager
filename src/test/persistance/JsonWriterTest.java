@@ -16,7 +16,7 @@ public class JsonWriterTest {
 
     @BeforeEach
     void runBefore() {
-        CollectionManager test = new CollectionManager();
+        test = new CollectionManager();
         Collection collection1 = new Collection("Work");
         Collection collection2 = new Collection("Entertainment");
 

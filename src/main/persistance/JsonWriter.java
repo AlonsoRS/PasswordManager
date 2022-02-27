@@ -1,6 +1,7 @@
 package persistance;
 
 import model.CollectionManager;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +10,7 @@ import java.io.PrintWriter;
 //Class taken from...
 //Represents a writer that writes JSON representation of CollectionManager
 public class JsonWriter {
+    private static final int TAB = 4;
     private String destination;
     private PrintWriter writer;
 
@@ -30,14 +32,15 @@ public class JsonWriter {
     // EFFECTS: writes JSON file representing CollectionManager
     // Code taken from JsonWriter class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     public void write(CollectionManager manager) {
-        //stub
+        JSONObject json = manager.toJson();
+        saveToFile(json.toString(TAB));
     }
 
     // MODIFIES: this
     // EFFECTS: closes writer
     // Code taken from JsonWriter class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     public void close() {
-        //stub
+        writer.close();
     }
 
     // MODIFIES: this
