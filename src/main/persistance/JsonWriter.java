@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-//Class taken from...
+
 //Represents a writer that writes JSON representation of CollectionManager
 public class JsonWriter {
     private static final int TAB = 4;

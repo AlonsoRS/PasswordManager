@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-//Class taken from...
+
 //Represents a reader that reads CollectionManager from JSON data stored in file
 public class JsonReader {
     private String source;
