@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        App runApp = new App();
+
+        //App runApp = new App();
+        new Renderer();
     }
 }

@@ -22,8 +22,14 @@ public class App {
 
     // EFFECTS: Starts the app
     public App() {
+        initializeGraphics();
         initializeFields();
         runPasswordManager();
+    }
+
+
+    private void initializeGraphics() {
+        new Renderer();
     }
 
     // MODIFIES: this

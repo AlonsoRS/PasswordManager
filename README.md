@@ -23,6 +23,9 @@ P2:
 - As a user, I want to be able to save my Collections to file
 - As a user, I want to be able to load my Collections from file
 
+
+
+
 ## Future User stories:
 - As a user, i want to easily copy to my clipboard the website from a User
 - As a user, i want to generate a random Password for a User
