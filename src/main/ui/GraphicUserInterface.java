@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import model.*;
+
 
 
 public class GraphicUserInterface extends JFrame implements ActionListener {
@@ -17,7 +17,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
 
     public GraphicUserInterface() {
         manager = new ManageModel();
-        panel = new JPanel(new GridBagLayout());
+        panel = new JPanel();
         initializeFrame();
         createMenu();
         displayWindow();
@@ -136,19 +136,82 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     private void addUserToCollection() {
     }
 
+    //EFFECTS: adds a new Collection
+    // Code partially extracted from TextSamplerDemo() constructor in:
+    // https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TextSamplerDemoProject/src/components/TextSamplerDemo.java
     private void addNewCollection() {
+        frame.remove(panel);
+        //Create Username field
+        JTextField usernameField = new JTextField(10);
+        usernameField.setActionCommand("Username");
+        usernameField.addActionListener(this);
+
+        //Create a password field.
+        JPasswordField passwordField = new JPasswordField(10);
+        passwordField.setActionCommand("Password");
+        passwordField.addActionListener(this);
+
+        //Create website field.
+        JTextField websiteField = new JPasswordField(10);
+        websiteField.setActionCommand("Website");
+        websiteField.addActionListener(this);
+
+        //Create some labels for the fields.
+        JLabel usernameFieldLabel = new JLabel("Username: ");
+        usernameFieldLabel.setLabelFor(usernameField);
+        JLabel passwordFieldLabel = new JLabel("Password: ");
+        passwordFieldLabel.setLabelFor(passwordField);
+        JLabel websiteFieldLabel = new JLabel("Website: ");
+        websiteFieldLabel.setLabelFor(websiteField);
+
+        //Lay out the text controls and the labels.
+        //createAndShowGUI() method in
+        //https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/SpringDemo2Project/src/layout/SpringDemo2.java
+        SpringLayout layout = new SpringLayout();
+        panel = new JPanel(layout);
+        panel.setBackground(Color.LIGHT_GRAY);
+        panel.add(usernameFieldLabel);
+        panel.add(usernameField);
+        //Adjust constraints for the label so it's at (5,5).
+        layout.putConstraint(SpringLayout.WEST, usernameFieldLabel,
+                5,
+                SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, usernameFieldLabel,
+                5,
+                SpringLayout.NORTH, panel);
+
+        //Adjust constraints for the text field so it's at
+        //(<label's right edge> + 5, 5).
+        layout.putConstraint(SpringLayout.WEST, usernameField,
+                5,
+                SpringLayout.EAST, usernameFieldLabel);
+        layout.putConstraint(SpringLayout.NORTH, usernameField,
+                5,
+                SpringLayout.NORTH, panel);
+
+        frame.add(panel);
+
+        displayWindow();
+
+        JLabel[] labels = {usernameFieldLabel, passwordFieldLabel, websiteFieldLabel};
+        JTextField[] textFields = {usernameField, passwordField, websiteField};
+
+
     }
 
-
-    //Code partially extract4ed from:
+    // EFFECTS: displays current collections. If there are no collections return
+    // Code partially extract4ed from:
     // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/SimpleTableDemoProject/src/components/SimpleTableDemo.java
     private void displayCollections() {
+        frame.remove(panel);
+        panel = new JPanel(new GridBagLayout());
+
         ArrayList<Object [][]> collectionsInDataFormat = manager.getCollectionsInDataFormat();
         if (collectionsInDataFormat == null) {
             return;
         }
 
-        String[] columnNames = {"Username", "Password", "Website",};
+        String[] columnNames = {"Username", "Password", "Website"};
         int index = 0;
 
         for (Object [][] collection : collectionsInDataFormat) {

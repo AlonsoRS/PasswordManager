@@ -30,10 +30,10 @@ public class ManageModel {
         manager = new CollectionManager();
         //DELETE AFTER TEST ===========================-------------------------------------------------
         Collection c1 = new Collection("Banking");
-        Collection c2 = new Collection("Fun");
-        c1.addUser(new User("jake", "paul"));
+        Collection c2 = new Collection("entertainment");
+        c1.addUser(new User("asdqew", "paul"));
         c1.addUser(new User("asd", "asd"));
-        c2.addUser(new User("jake", "paul"));
+        c2.addUser(new User("qwewq", "paul"));
 
         manager.addCollection(c1);
         manager.addCollection(c2);
