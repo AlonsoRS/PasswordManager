@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 //Represents a User having a username, password, website and date of creation
 public class User {
+    public static final int FIELDS = 3;
     private String username;
     private Password password;
     private String website;

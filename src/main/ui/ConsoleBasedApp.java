@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 // Manages console based interface for the Password Manager app
-public class App {
+public class ConsoleBasedApp {
     private static final String JSON_STORE = "./data/users.json";
     private CollectionManager manager;
     private Scanner input;
@@ -21,16 +21,11 @@ public class App {
 
 
     // EFFECTS: Starts the app
-    public App() {
-        initializeGraphics();
+    public ConsoleBasedApp() {
         initializeFields();
         runPasswordManager();
     }
 
-
-    private void initializeGraphics() {
-        new Renderer();
-    }
 
     // MODIFIES: this
     // EFFECTS: initializes fields
@@ -61,7 +56,7 @@ public class App {
             System.out.print("\n");
         }
 
-        System.out.println("App closed");
+        System.out.println("ConsoleBasedApp closed");
 
     }
 
@@ -229,6 +224,8 @@ public class App {
         }
     }
 
+
+
     //EFFECTS: prints information of Users
     private void printUsers(ArrayList<User> users) {
         for (User user : users) {
@@ -246,7 +243,7 @@ public class App {
     }
 
 
-    //EFFECTS: displays the options available for the user of the App
+    //EFFECTS: displays the options available for the user of the ConsoleBasedApp
     //Code taken from TellerApp class: https://github.students.cs.ubc.ca/CPSC210/TellerApp.git
     private void displayMenu() {
         System.out.println("Options:");
