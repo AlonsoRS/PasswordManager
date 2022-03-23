@@ -42,34 +42,32 @@ public class ManageModel {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }
-//
-//
-//    // MODIFIES:
-//    // EFFECTS:
-//    // Code taken from WorkRoomApp class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-//    private void saveCollections() {
-//        try {
-//            jsonWriter.open();
-//            jsonWriter.write(manager);
-//            jsonWriter.close();
-//            System.out.println("Saved Collections to " + JSON_STORE);
-//        } catch (FileNotFoundException e) {
-//            System.out.println("Unable to write to file: " + JSON_STORE);
-//        }
-//    }
-//
-//    // MODIFIES:
-//    // EFFECTS:
-//    // Code taken from WorkRoomApp class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-//    private void loadCollections() {
-//        try {
-//            manager = jsonReader.read();
-//            System.out.println("Loaded Collections from " + JSON_STORE);
-//        } catch (IOException e) {
-//            System.out.println("Unable to read from file: " + JSON_STORE);
-//        }
-//    }
-//
+
+
+    // MODIFIES: this
+    // EFFECTS: saves Collections to file
+    // Code taken from WorkRoomApp class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    public void saveCollections() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(manager);
+            jsonWriter.close();
+        } catch (FileNotFoundException e) {
+            return;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads Collections to file
+    // Code taken from WorkRoomApp class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    public void loadCollections() {
+        try {
+            manager = jsonReader.read();
+        } catch (IOException e) {
+            return;
+        }
+    }
+
     // EFFECTS: Returns Collections with Users that match username.
     //          If none found, return null
     public ArrayList<Collection> searchUser(String username) {

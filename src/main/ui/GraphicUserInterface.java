@@ -130,7 +130,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
                 saveToFile();
                 break;
             case ("Load from File"):
-                saveFromFile();
+                LoadFromFile();
                 break;
             case ("Create Collection"):
                 createCollection();
@@ -176,12 +176,15 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         manager.addNewCollection(collectionField.getText());
     }
 
-
-    private void saveFromFile() {
+    // EFFECTS: loads Collections from file
+    private void LoadFromFile() {
+        manager.loadCollections();
 
     }
 
+    // EFFECTS: saves Collections to file
     private void saveToFile() {
+        manager.saveCollections();
     }
 
     private void quit() {
