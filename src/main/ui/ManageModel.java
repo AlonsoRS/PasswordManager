@@ -92,69 +92,52 @@ public class ManageModel {
 //            printUsers(coll.getUserByUsername(username));
 //        }
 //    }
+//\
+
+    //MODIFIES: this
+    //EFFECT: if no Collections have been added or Collection is not found, return
+    //        else, adds a new User to a Collection
+    public void addNewUserToCollection(String collectionName, User user) {
+        if (manager.getCollections().isEmpty()) {
+            return;
+        }
+
+        Collection collection = selectCollection(collectionName);
+
+        if (collection == null) {
+            return;
+        }
+
+        collection.addUser(user);
+
+    }
+
+    // EFFECT: Finds and returns Collection with chosenCollection as name from manager
+    private Collection selectCollection(String chosenCollection) {
+        return manager.findCollection(chosenCollection);
+    }
+
 //
-//    //MODIFIES: this
-//    //EFFECT: if no Collections have been added or Collection is not found, return
-//    //        else, adds a new User to a Collection
-//    private void addNewUserToCollection() {
-//        if (manager.getCollections().isEmpty()) {
-//            System.out.println("No collections have been created");
-//            return;
-//        }
-//
-//        Collection collection = selectCollection(chooseCollection());
-//
-//        if (collection == null) {
-//            System.out.print("Collection not found, returning to main menu");
-//            return;
-//        }
-//
-//        collection.addUser(createUser());
-//        System.out.print("User added successfully!\n");
-//
-//    }
-//
-//    // EFFECT: Finds and returns Collection with chosenCollection as name from manager
-//    private Collection selectCollection(String chosenCollection) {
-//        return manager.findCollection(chosenCollection);
-//    }
-//
-//
-//
-//    // MODIFIES: this
-//    // EFFECT: creates new User
-//    private User createUser() {
-//        String username;
-//        String password;
-//        String website;
-//
-//        System.out.println("Enter the new User's information: ");
-//        System.out.print("\tusername: ");
-//        username = input.next();
-//        System.out.print("\tpassword: ");
-//        password = input.next();
-//        System.out.print("\twebsite: ");
-//        website = input.next();
-//
-//        User user = new User(username, password);
-//        user.setWebsite(website);
-//
-//        return user;
-//
-//    }
-//
-//    // MODIFIES: this
-//    // EFFECTS: creates a new Collection with input as the collection name,
-//    //          and adds new Collection to manager
-//    private void addNewCollection() {
-//        System.out.print("Name of new collection: ");
-//        String collectionName = input.next();
-//
-//        manager.addCollection(new Collection(collectionName));
-//
-//        System.out.println("Collection created!");
-//    }
-//
+
+    // MODIFIES: this
+    // EFFECT: creates new User
+    public User createUser(String username, String password, String website) {
+
+        User user = new User(username, password);
+        user.setWebsite(website);
+
+        return user;
+
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: creates a new Collection with input as the collection name,
+    //          and adds new Collection to manager
+    public void addNewCollection(String collectionName) {
+        manager.addCollection(new Collection(collectionName));
+    }
+
 
     //EFFECTS: returns Collections in format for data, if there is no data available returns null
     public ArrayList<Object [][]> getCollectionsInDataFormat() {
