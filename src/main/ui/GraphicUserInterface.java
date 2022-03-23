@@ -26,20 +26,36 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     JTextField passwordField;
     JTextField websiteField;
 
+    JLabel collectionFieldLabel;
+    JLabel usernameFieldLabel;
+    JLabel passwordFieldLabel;
+    JLabel websiteFieldLabel;
+
 
 
     public GraphicUserInterface() {
-        manager = new ManageModel();
-        panel = new JPanel();
 
-        initializeFrame();
-        createMenu();
-        displayWindow();
+        initializeFields();
+        initializeGraphics();
+        updateWindow();
 
     }
 
+    // EFFECTS: initializes graphics
+    private void initializeGraphics() {
+        panel = new JPanel();
+        createJTextFields();
+        createJLabels();
+        initializeFrame();
+        createMenu();
 
+    }
 
+    // EFFECTS: initializes fields
+    private void initializeFields() {
+        manager = new ManageModel();
+
+    }
 
 
     //EFFECTS: Creates MenuBar with Menus and Items
@@ -75,9 +91,6 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         item = new JMenuItem("Search Users by username");
         item.addActionListener(this);
         optionsMenu.add(item);
-        item = new JMenuItem("Quit");
-        item.addActionListener(this);
-        optionsMenu.add(item);
         item = new JMenuItem("Save to File");
         item.addActionListener(this);
         fileMenu.add(item);
@@ -90,7 +103,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     //EFFECTS: displays interface on screen
     //Code taken from ButtonDemo class in:
     //https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ButtonDemoProject/src/components/ButtonDemo.java
-    private void displayWindow() {
+    private void updateWindow() {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -106,10 +119,37 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-
+    // EFFECTS: returns true if action event comes from an option in the menu
+    boolean isOptionMenu(ActionEvent ae) {
+        return ae.getActionCommand().equals("Display Collections")
+                || ae.getActionCommand().equals("Add a new Collection")
+                || ae.getActionCommand().equals("Add a new user to a Collection")
+                || ae.getActionCommand().equals("Search Users by username")
+                || ae.getActionCommand().equals("Save to File")
+                || ae.getActionCommand().equals("Load from File");
+    }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
+        if (isOptionMenu(ae)) {
+            chooseOptionMenu(ae);
+            return;
+        }
+        if (isButton(ae)) {
+            chooseButton(ae);
+            return;
+        }
+    }
+
+    // EFFECTS: returns true if action event comes from an option in the menu
+    private boolean isButton(ActionEvent ae) {
+        return ae.getActionCommand().equals("Create Collection")
+                || ae.getActionCommand().equals("Add User to Collection")
+                || ae.getActionCommand().equals("Search User");
+    }
+
+    //EFFECTS chooses what operation to perform based on menu item selected
+    private void chooseOptionMenu(ActionEvent ae) {
         switch (ae.getActionCommand()) {
             case ("Display Collections"):
                 displayCollections();
@@ -123,15 +163,19 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
             case ("Search Users by username"):
                 displaySearchUsersByUsername();
                 break;
-            case ("Quit"):
-                quit();
-                break;
             case ("Save to File"):
                 saveToFile();
                 break;
             case ("Load from File"):
-                LoadFromFile();
+                loadFromFile();
                 break;
+        }
+    }
+
+
+    //EFFECTS chooses what operation to perform based on button pressed
+    private void chooseButton(ActionEvent ae) {
+        switch (ae.getActionCommand()) {
             case ("Create Collection"):
                 createCollection();
                 break;
@@ -141,7 +185,6 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
             case ("Search User"):
                 displayFoundUser(searchForUser());
                 break;
-
         }
     }
 
@@ -158,8 +201,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     //EFFECTS: searches for Username inputted by user
     private ArrayList<Object [][]> searchForUser() {
         ArrayList<Collection> foundUsers = manager.searchUser(usernameField.getText());
-        ArrayList<Object [][]> collectionsInDataFormat = manager.getCollectionsInDataFormat(foundUsers);
-        return collectionsInDataFormat;
+        return manager.getCollectionsInDataFormat(foundUsers);
 
 
     }
@@ -177,7 +219,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     }
 
     // EFFECTS: loads Collections from file
-    private void LoadFromFile() {
+    private void loadFromFile() {
         manager.loadCollections();
 
     }
@@ -187,44 +229,33 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         manager.saveCollections();
     }
 
-    private void quit() {
-    }
-
 
     // EFFECTS: displays the panel to search for a user by username
-    // Code partially extracted from TextSamplerDemo() constructor in:
-    // https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TextSamplerDemoProject/src/components/TextSamplerDemo.java
     private void displaySearchUsersByUsername() {
         frame.remove(panel);
-        //Create Collection field
-        usernameField = new JTextField(10);
-        usernameField.setActionCommand("User");
-        usernameField.addActionListener(this);
-        //Create some labels for the fields.
-        JLabel userFieldLabel = new JLabel("User: ");
-        userFieldLabel.setLabelFor(usernameField);
-        //createAndShowGUI() method in
-        //https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/SpringDemo2Project/src/layout/SpringDemo2.java
+        displayLabelTextFieldButton(usernameFieldLabel, usernameField, "Search User");
+        updateWindow();
+    }
+
+    // EFFECTS: displays given labels and text fields along with a button of name buttonName
+    // Code partially extracted from createAndShowGUI() method in
+    //https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/SpringDemo2Project/src/layout/SpringDemo2.java
+    private void displayLabelTextFieldButton(JLabel label, JTextField textField, String buttonName) {
         SpringLayout layout = new SpringLayout();
         panel = new JPanel(layout);
         panel.setBackground(Color.LIGHT_GRAY);
-        panel.add(userFieldLabel);
-        panel.add(usernameField);
-        //Adjust constraints for the label so it's at (5,5).
-        layout.putConstraint(SpringLayout.WEST, userFieldLabel, 5, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, userFieldLabel, 5, SpringLayout.NORTH, panel);
-        //Adjust constraints for the text field so it's at
-        //(<label's right edge> + 5, 5).
-        layout.putConstraint(SpringLayout.WEST, usernameField, 5, SpringLayout.EAST, userFieldLabel);
-        layout.putConstraint(SpringLayout.NORTH, usernameField, 5, SpringLayout.NORTH, panel);
-        //button stuff
-        JButton button = new JButton("Search User");
+        panel.add(label);
+        panel.add(textField);
+        layout.putConstraint(SpringLayout.WEST, label, 5, SpringLayout.WEST, panel);
+        layout.putConstraint(SpringLayout.NORTH, label, 5, SpringLayout.NORTH, panel);
+        layout.putConstraint(SpringLayout.WEST, textField, 5, SpringLayout.EAST, label);
+        layout.putConstraint(SpringLayout.NORTH, textField, 5, SpringLayout.NORTH, panel);
+        JButton button = new JButton(buttonName);
         button.addActionListener(this);
-        layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.EAST, usernameField);
-        layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.SOUTH, usernameField);
+        layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.EAST, textField);
+        layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.SOUTH, textField);
         panel.add(button);
         frame.add(panel);
-        displayWindow();
     }
 
 
@@ -233,15 +264,6 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     // https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TextSamplerDemoProject/src/components/TextSamplerDemo.java
     private void displayAddUserToCollection() {
         frame.remove(panel);
-        createJTextFields();
-        JLabel collectionFieldLabel = new JLabel("Collection: ");
-        collectionFieldLabel.setLabelFor(collectionField);
-        JLabel usernameFieldLabel = new JLabel("Username: ");
-        usernameFieldLabel.setLabelFor(usernameField);
-        JLabel passwordFieldLabel = new JLabel("Password: ");
-        passwordFieldLabel.setLabelFor(passwordField);
-        JLabel websiteFieldLabel = new JLabel("Website: ");
-        websiteFieldLabel.setLabelFor(websiteField);
         //createAndShowGUI() method in
         //https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/SpringDemo2Project/src/layout/SpringDemo2.java
         SpringLayout layout = new SpringLayout();
@@ -288,7 +310,21 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         layout.putConstraint(SpringLayout.NORTH, button, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH, websiteField);
         panel.add(button);
         frame.add(panel);
-        displayWindow();
+        updateWindow();
+    }
+
+    // EFFECTS: creates JLabels
+    // Code partially extracted from TextSamplerDemo() constructor in:
+    // https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TextSamplerDemoProject/src/components/TextSamplerDemo.java
+    private void createJLabels() {
+        collectionFieldLabel = new JLabel("Collection: ");
+        collectionFieldLabel.setLabelFor(collectionField);
+        usernameFieldLabel = new JLabel("Username: ");
+        usernameFieldLabel.setLabelFor(usernameField);
+        passwordFieldLabel = new JLabel("Password: ");
+        passwordFieldLabel.setLabelFor(passwordField);
+        websiteFieldLabel = new JLabel("Website: ");
+        websiteFieldLabel.setLabelFor(websiteField);
     }
 
     // EFFECTS: creates JText fields
@@ -310,46 +346,15 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     }
 
     //EFFECTS: adds a new Collection
-    // Code partially extracted from TextSamplerDemo() constructor in:
-    // https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TextSamplerDemoProject/src/components/TextSamplerDemo.java
     private void displayAddNewCollection() {
         frame.remove(panel);
-        //Create Collection field
-        collectionField = new JTextField(10);
-        collectionField.setActionCommand("Collection");
-        collectionField.addActionListener(this);
-        //Create some labels for the fields.
-        JLabel collectionFieldLabel = new JLabel("Collection: ");
-        collectionFieldLabel.setLabelFor(collectionField);
-        //Lay out the text controls and the labels.
-        //createAndShowGUI() method in
-        //https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/SpringDemo2Project/src/layout/SpringDemo2.java
-        SpringLayout layout = new SpringLayout();
-        panel = new JPanel(layout);
-        panel.setBackground(Color.LIGHT_GRAY);
-        panel.add(collectionFieldLabel);
-        panel.add(collectionField);
-        //Adjust constraints for the label so it's at (5,5).
-        layout.putConstraint(SpringLayout.WEST, collectionFieldLabel, 5, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, collectionFieldLabel, 5, SpringLayout.NORTH, panel);
-        //Adjust constraints for the text field so it's at
-        //(<label's right edge> + 5, 5).
-        layout.putConstraint(SpringLayout.WEST, collectionField, 5, SpringLayout.EAST, collectionFieldLabel);
-        layout.putConstraint(SpringLayout.NORTH, collectionField, 5, SpringLayout.NORTH, panel);
-        //button stuff
-        JButton button = new JButton("Create Collection");
-        button.addActionListener(this);
-        layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.EAST, collectionField);
-        layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.SOUTH, collectionField);
-        panel.add(button);
+        displayLabelTextFieldButton(collectionFieldLabel, collectionField, "Create Collection");
         frame.add(panel);
-        displayWindow();
+        updateWindow();
 
     }
 
     // EFFECTS: displays current collections. If there are no collections return
-    // Code partially extract4ed from:
-    // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/SimpleTableDemoProject/src/components/SimpleTableDemo.java
     private void displayCollections() {
         frame.remove(panel);
         ArrayList<Object [][]> collectionsInDataFormat = manager.getCollectionsInDataFormat(manager.getCollections());
@@ -359,11 +364,14 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         displayCollectionsInDataFormat(collectionsInDataFormat);
     }
 
+
+    // EFFECTS: Given collections in JTable data format, display them on window
+    // Code partially extract4ed from:
+    // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/SimpleTableDemoProject/src/components/SimpleTableDemo.java
     private void displayCollectionsInDataFormat(ArrayList<Object[][]> collectionsInDataFormat) {
         panel = new JPanel(new GridBagLayout());
         String[] columnNames = {"Username", "Password", "Website"};
         int index = 0;
-
         for (Object [][] collection : collectionsInDataFormat) {
             JTable table = new JTable(collection, columnNames);
             JTableHeader firstRow = table.getTableHeader();
@@ -379,7 +387,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         }
         panel.setBackground(Color.WHITE);
         frame.add(panel);
-        displayWindow();
+        updateWindow();
     }
 
 
