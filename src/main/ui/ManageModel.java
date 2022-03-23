@@ -70,28 +70,16 @@ public class ManageModel {
 //        }
 //    }
 //
-//    // EFFECTS: Prints only the Users that match user input with their respective Collection name
-//    private void searchUser() {
-//        System.out.print("Username to search: ");
-//        String username = input.next();
-//
-//        ArrayList<Collection> found = manager.findUser(username);
-//        if (found.isEmpty()) {
-//            System.out.println("User not found");
-//            return;
-//        }
-//        printUserInCollection(found, username);
-//    }
-//
-//    // EFFECTS: From given Collections, prints:
-//    //           -the Collection name
-//    //           -the Users that match username
-//    private void printUserInCollection(ArrayList<Collection> collections, String username) {
-//        for (Collection coll: collections) {
-//            System.out.print(coll.getCollectionName() + "\n");
-//            printUsers(coll.getUserByUsername(username));
-//        }
-//    }
+    // EFFECTS: Returns Collections with Users that match username.
+    //          If none found, return null
+    public ArrayList<Collection> searchUser(String username) {
+        ArrayList<Collection> found = manager.findUser(username);
+        if (found.isEmpty()) {
+            return null;
+        }
+        return found;
+    }
+
 //\
 
     //MODIFIES: this
@@ -140,13 +128,13 @@ public class ManageModel {
 
 
     //EFFECTS: returns Collections in format for data, if there is no data available returns null
-    public ArrayList<Object [][]> getCollectionsInDataFormat() {
-        if (manager.getCollections().isEmpty()) {
+    public ArrayList<Object [][]> getCollectionsInDataFormat(ArrayList<Collection> collections) {
+        if (collections.isEmpty()) {
             return null;
         }
         ArrayList result = new ArrayList<Object [][]>();
 
-        for (Collection col : manager.getCollections()) {
+        for (Collection col : collections) {
             result.add(getUsersInDataFormat(col));
         }
 
@@ -179,6 +167,11 @@ public class ManageModel {
     // EFFECTS: returns the collection name at position index
     public String getCollectionNameAt(int index) {
         return manager.getCollections().get(index).getCollectionName();
+    }
+
+    // EFFECTS: returns collections
+    public ArrayList<Collection> getCollections() {
+        return manager.getCollections();
     }
 
 
