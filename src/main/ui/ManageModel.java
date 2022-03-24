@@ -28,17 +28,17 @@ public class ManageModel {
     // Modified code from WorkRoomApp class: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     private void initializeFields() {
         manager = new CollectionManager();
-        //DELETE AFTER TEST ===========================-------------------------------------------------
-        Collection c1 = new Collection("Banking");
-        Collection c2 = new Collection("entertainment");
-        c1.addUser(new User("asdqew", "paul"));
-        c1.addUser(new User("asd", "asd"));
-        c2.addUser(new User("qwewq", "paul"));
-
-        manager.addCollection(c1);
-        manager.addCollection(c2);
-        manager.addCollection(c1);
-        //DELETE AFTER TEST ===========================-------------------------------------------------
+//        //DELETE AFTER TEST ===========================-------------------------------------------------
+//        Collection c1 = new Collection("Banking");
+//        Collection c2 = new Collection("entertainment");
+//        c1.addUser(new User("asdqew", "paul"));
+//        c1.addUser(new User("asd", "asd"));
+//        c2.addUser(new User("qwewq", "paul"));
+//
+//        manager.addCollection(c1);
+//        manager.addCollection(c2);
+//        manager.addCollection(c1);
+//        //DELETE AFTER TEST ===========================-------------------------------------------------
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }

@@ -16,10 +16,10 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
     public static final int SEPARATION_BETWEEN_FIELDS = 40;
-
-    JFrame frame;
     ManageModel manager;
+    JFrame frame;
     JPanel panel;
+    SpringLayout springLayout;
 
     JTextField collectionField;
     JTextField usernameField;
@@ -34,13 +34,13 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
 
 
     public GraphicUserInterface() {
-
         initializeFields();
         initializeGraphics();
         updateWindow();
 
     }
 
+    // MODIFIES: this
     // EFFECTS: initializes graphics
     private void initializeGraphics() {
         panel = new JPanel();
@@ -58,6 +58,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     }
 
 
+    // MODIFIES: this
     //EFFECTS: Creates MenuBar with Menus and Items
     // Code taken from createAndShowGUI() in
     // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TopLevelDemoProject/src/components/TopLevelDemo.java
@@ -73,6 +74,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         menuBar.add(fileMenu);
         frame.setJMenuBar(menuBar);
     }
+
 
 
     //EFFECTS: initializes options to choose from menu
@@ -100,6 +102,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     }
 
 
+    // MODIFIES: this
     //EFFECTS: displays interface on screen
     //Code taken from ButtonDemo class in:
     //https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ButtonDemoProject/src/components/ButtonDemo.java
@@ -110,6 +113,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     }
 
 
+    // MODIFIES: this
     //EFFECT: initializes JFrame
     //Code taken from ButtonDemo class in:
     //https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ButtonDemoProject/src/components/ButtonDemo.java
@@ -148,6 +152,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
                 || ae.getActionCommand().equals("Search User");
     }
 
+    // MODIFIES: this
     //EFFECTS chooses what operation to perform based on menu item selected
     private void chooseOptionMenu(ActionEvent ae) {
         switch (ae.getActionCommand()) {
@@ -172,7 +177,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         }
     }
 
-
+    // MODIFIES: this
     //EFFECTS chooses what operation to perform based on button pressed
     private void chooseButton(ActionEvent ae) {
         switch (ae.getActionCommand()) {
@@ -188,6 +193,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
     //EFFECTS: displays found users, if there are none return
     private void displayFoundUser(ArrayList<Object[][]> collectionsInDataFormat) {
         frame.remove(panel);
@@ -198,6 +204,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
 
     }
 
+    // MODIFIES: this
     //EFFECTS: searches for Username inputted by user
     private ArrayList<Object [][]> searchForUser() {
         ArrayList<Collection> foundUsers = manager.searchUser(usernameField.getText());
@@ -206,6 +213,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
 
     }
 
+    // MODIFIES: this
     //EFFECTS: creates User with inputs form user and adds the User to a Collection
     private void createUserAndAddToCollection() {
         User user = manager.createUser(usernameField.getText(), passwordField.getText(), websiteField.getText());
@@ -213,23 +221,26 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
 
     }
 
+    // MODIFIES: this
     //EFFECTS: creates a Collection with the name give by the user
     private void createCollection() {
         manager.addNewCollection(collectionField.getText());
     }
 
+    // MODIFIES: this
     // EFFECTS: loads Collections from file
     private void loadFromFile() {
         manager.loadCollections();
 
     }
 
+    // MODIFIES: this
     // EFFECTS: saves Collections to file
     private void saveToFile() {
         manager.saveCollections();
     }
 
-
+    // MODIFIES: this
     // EFFECTS: displays the panel to search for a user by username
     private void displaySearchUsersByUsername() {
         frame.remove(panel);
@@ -237,37 +248,49 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         updateWindow();
     }
 
+    // MODIFIES: this
     // EFFECTS: displays given labels and text fields along with a button of name buttonName
     // Code partially extracted from createAndShowGUI() method in
     //https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/SpringDemo2Project/src/layout/SpringDemo2.java
     private void displayLabelTextFieldButton(JLabel label, JTextField textField, String buttonName) {
-        SpringLayout layout = new SpringLayout();
-        panel = new JPanel(layout);
+        springLayout = new SpringLayout();
+        panel = new JPanel(springLayout);
         panel.setBackground(Color.LIGHT_GRAY);
         panel.add(label);
         panel.add(textField);
-        layout.putConstraint(SpringLayout.WEST, label, 5, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, label, 5, SpringLayout.NORTH, panel);
-        layout.putConstraint(SpringLayout.WEST, textField, 5, SpringLayout.EAST, label);
-        layout.putConstraint(SpringLayout.NORTH, textField, 5, SpringLayout.NORTH, panel);
+        springLayout.putConstraint(SpringLayout.WEST, label, 5, SpringLayout.WEST, panel);
+        springLayout.putConstraint(SpringLayout.NORTH, label, 5, SpringLayout.NORTH, panel);
+        springLayout.putConstraint(SpringLayout.WEST, textField, 5, SpringLayout.EAST, label);
+        springLayout.putConstraint(SpringLayout.NORTH, textField, 5, SpringLayout.NORTH, panel);
         JButton button = new JButton(buttonName);
         button.addActionListener(this);
-        layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.EAST, textField);
-        layout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.SOUTH, textField);
+        springLayout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.EAST, textField);
+        springLayout.putConstraint(SpringLayout.NORTH, button, 5, SpringLayout.SOUTH, textField);
         panel.add(button);
         frame.add(panel);
     }
 
+    // MODIFIES: this
+    // EFFECT: places collection in Panel
+    private void placeCollection() {
+        //COLLECTION
+        springLayout.putConstraint(SpringLayout.WEST, collectionFieldLabel, 5, SpringLayout.WEST, panel); //
+        springLayout.putConstraint(SpringLayout.NORTH, collectionFieldLabel, 5, SpringLayout.NORTH, panel); // below
+        springLayout.putConstraint(SpringLayout.WEST, collectionField, 5, SpringLayout.EAST, collectionFieldLabel); //next to
+        springLayout.putConstraint(SpringLayout.NORTH, collectionField, 5, SpringLayout.NORTH, panel);
+    }
 
-    //EFFECTS: displays panel to add a user to a collection
+
+    // MODIFIES: this
+    // EFFECTS: displays panel to add a user to a collection
     // Code partially extracted from TextSamplerDemo() constructor in:
     // https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TextSamplerDemoProject/src/components/TextSamplerDemo.java
     private void displayAddUserToCollection() {
         frame.remove(panel);
         //createAndShowGUI() method in
         //https://docs.oracle.com/javase/tutorial/uiswing/examples/layout/SpringDemo2Project/src/layout/SpringDemo2.java
-        SpringLayout layout = new SpringLayout();
-        panel = new JPanel(layout);
+        springLayout = new SpringLayout();
+        panel = new JPanel(springLayout);
         panel.setBackground(Color.LIGHT_GRAY);
         panel.add(collectionFieldLabel);
         panel.add(collectionField);
@@ -278,41 +301,42 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         panel.add(websiteFieldLabel);
         panel.add(websiteField);
         //COLLECTION
-        layout.putConstraint(SpringLayout.WEST, collectionFieldLabel, 5, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, collectionFieldLabel, 5, SpringLayout.NORTH, panel);
-        layout.putConstraint(SpringLayout.WEST, collectionField, 5, SpringLayout.EAST, collectionFieldLabel);
-        layout.putConstraint(SpringLayout.NORTH, collectionField, 5, SpringLayout.NORTH, panel);
+        springLayout.putConstraint(SpringLayout.WEST, collectionFieldLabel, 5, SpringLayout.WEST, panel);
+        springLayout.putConstraint(SpringLayout.NORTH, collectionFieldLabel, 5, SpringLayout.NORTH, panel);
+        springLayout.putConstraint(SpringLayout.WEST, collectionField, 5, SpringLayout.EAST, collectionFieldLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, collectionField, 5, SpringLayout.NORTH, panel);
         //USERNAME
-        layout.putConstraint(SpringLayout.WEST, usernameFieldLabel, 5, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, usernameFieldLabel, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
+        springLayout.putConstraint(SpringLayout.WEST, usernameFieldLabel, 5, SpringLayout.WEST, panel);
+        springLayout.putConstraint(SpringLayout.NORTH, usernameFieldLabel, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
                 collectionFieldLabel);
-        layout.putConstraint(SpringLayout.WEST, usernameField, 5, SpringLayout.EAST, usernameFieldLabel);
-        layout.putConstraint(SpringLayout.NORTH, usernameField, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
+        springLayout.putConstraint(SpringLayout.WEST, usernameField, 5, SpringLayout.EAST, usernameFieldLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, usernameField, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
                 collectionField);
         //PASSWORD
-        layout.putConstraint(SpringLayout.WEST, passwordFieldLabel, 5, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, passwordFieldLabel, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
+        springLayout.putConstraint(SpringLayout.WEST, passwordFieldLabel, 5, SpringLayout.WEST, panel);
+        springLayout.putConstraint(SpringLayout.NORTH, passwordFieldLabel, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
                 usernameFieldLabel);
-        layout.putConstraint(SpringLayout.WEST, passwordField, 5, SpringLayout.EAST, passwordFieldLabel);
-        layout.putConstraint(SpringLayout.NORTH, passwordField, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
+        springLayout.putConstraint(SpringLayout.WEST, passwordField, 5, SpringLayout.EAST, passwordFieldLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, passwordField, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
                 usernameField);
         //WEBSITE
-        layout.putConstraint(SpringLayout.WEST, websiteFieldLabel, 5, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, websiteFieldLabel, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
+        springLayout.putConstraint(SpringLayout.WEST, websiteFieldLabel, 5, SpringLayout.WEST, panel);
+        springLayout.putConstraint(SpringLayout.NORTH, websiteFieldLabel, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
                 passwordFieldLabel);
-        layout.putConstraint(SpringLayout.WEST, websiteField, 5, SpringLayout.EAST, websiteFieldLabel);
-        layout.putConstraint(SpringLayout.NORTH, websiteField, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
+        springLayout.putConstraint(SpringLayout.WEST, websiteField, 5, SpringLayout.EAST, websiteFieldLabel);
+        springLayout.putConstraint(SpringLayout.NORTH, websiteField, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH,
                 passwordField);
         //button stuff
         JButton button = new JButton("Add User to Collection");
         button.addActionListener(this);
-        layout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, panel);
-        layout.putConstraint(SpringLayout.NORTH, button, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH, websiteField);
+        springLayout.putConstraint(SpringLayout.WEST, button, 5, SpringLayout.WEST, panel);
+        springLayout.putConstraint(SpringLayout.NORTH, button, SEPARATION_BETWEEN_FIELDS, SpringLayout.NORTH, websiteField);
         panel.add(button);
         frame.add(panel);
         updateWindow();
     }
 
+    // MODIFIES: this
     // EFFECTS: creates JLabels
     // Code partially extracted from TextSamplerDemo() constructor in:
     // https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TextSamplerDemoProject/src/components/TextSamplerDemo.java
@@ -327,6 +351,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         websiteFieldLabel.setLabelFor(websiteField);
     }
 
+    // MODIFIES: this
     // EFFECTS: creates JText fields
     // Code partially extracted from TextSamplerDemo() constructor in:
     // https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TextSamplerDemoProject/src/components/TextSamplerDemo.java
@@ -345,6 +370,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         websiteField.addActionListener(this);
     }
 
+    // MODIFIES: this
     //EFFECTS: adds a new Collection
     private void displayAddNewCollection() {
         frame.remove(panel);
@@ -354,6 +380,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
 
     }
 
+    // MODIFIES: this
     // EFFECTS: displays current collections. If there are no collections return
     private void displayCollections() {
         frame.remove(panel);
@@ -365,6 +392,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     }
 
 
+    // MODIFIES: this
     // EFFECTS: Given collections in JTable data format, display them on window
     // Code partially extract4ed from:
     // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/SimpleTableDemoProject/src/components/SimpleTableDemo.java
