@@ -49,18 +49,18 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         createJLabels();
         initializeFrame();
         createMenu();
+        displayBackgroundImage();
 
     }
 
     // EFFECTS: initializes non-graphic related fields
     private void initializeFields() {
         manager = new ManageModel();
-
     }
 
 
     // MODIFIES: this
-    //EFFECTS: Creates MenuBar with Menus and Items
+    // EFFECTS: Creates MenuBar with Menus and Items
     // Code taken from createAndShowGUI() in
     // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TopLevelDemoProject/src/components/TopLevelDemo.java
     private void createMenu() {
@@ -76,6 +76,17 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         frame.setJMenuBar(menuBar);
     }
 
+    private void displayBackgroundImage() {
+        frame.remove(panel);
+        panel = new JPanel(new BorderLayout());
+        ImageIcon backgroundIMG = new ImageIcon("./data/background.png");
+        Image temp = backgroundIMG.getImage();
+        temp = temp.getScaledInstance(1000, 650, Image.SCALE_SMOOTH);
+        backgroundIMG = new ImageIcon(temp);
+        JLabel label = new JLabel(backgroundIMG);
+        panel.add(label);
+        frame.add(panel);
+    }
 
 
     //EFFECTS: initializes options to choose from menu

@@ -36,3 +36,4 @@ P2:
 ## Image Citations:
 - SaveIcon: https://icons8.com/icon/13279/save
 - LoadIcon: https://icons8.com/icon/RLPVoj6CHEpb/load
+- Background Image: https://vpnoverview.com/password-managers/
