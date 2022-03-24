@@ -16,6 +16,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
     public static final int SEPARATION_BETWEEN_FIELDS = 40;
+    public static final int ICON_DIMENSION = 30;
     ManageModel manager;
     JFrame frame;
     JPanel panel;
@@ -93,12 +94,28 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         item = new JMenuItem("Search Users by username");
         item.addActionListener(this);
         optionsMenu.add(item);
-        item = new JMenuItem("Save to File");
+        item = new JMenuItem("Save to File", createSaveIcon());
         item.addActionListener(this);
         fileMenu.add(item);
-        item = new JMenuItem("Load from File");
+        item = new JMenuItem("Load from File", createLoadIcon());
         item.addActionListener(this);
         fileMenu.add(item);
+    }
+
+    // EFFECTS: creates save icon and returns it as ImageIcon
+    private ImageIcon createSaveIcon() {
+        ImageIcon saveIcon = new ImageIcon("./data/saveIcon.png");
+        Image resizedIcon =  saveIcon.getImage();
+        resizedIcon = resizedIcon.getScaledInstance(ICON_DIMENSION, ICON_DIMENSION,  java.awt.Image.SCALE_SMOOTH);
+        return new ImageIcon(resizedIcon);
+    }
+
+    // EFFECTS: creates load icon and returns it as ImageIcon
+    private ImageIcon createLoadIcon() {
+        ImageIcon loadIcon = new ImageIcon("./data/loadIcon.png");
+        Image resizedIcon =  loadIcon.getImage();
+        resizedIcon = resizedIcon.getScaledInstance(ICON_DIMENSION, ICON_DIMENSION,  java.awt.Image.SCALE_SMOOTH);
+        return new ImageIcon(resizedIcon);
     }
 
 
@@ -404,7 +421,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: Given collections in JTable data format, display them on window
-    // Code partially extract4ed from:
+    // Code partially extracted from:
     // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/SimpleTableDemoProject/src/components/SimpleTableDemo.java
     private void displayCollectionsInDataFormat(ArrayList<Object[][]> collectionsInDataFormat) {
         panel = new JPanel(new GridBagLayout());
@@ -414,7 +431,6 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
             JTable table = new JTable(collection, columnNames);
             JTableHeader firstRow = table.getTableHeader();
             firstRow.setBackground(Color.LIGHT_GRAY);
-
             table.setPreferredScrollableViewportSize(new Dimension(WIDTH / manager.getNumberOfCollections(),
                     (int) (HEIGHT * 0.8)));
             table.setFillsViewportHeight(true);

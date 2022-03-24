@@ -32,3 +32,7 @@ P2:
 - As a user, I want to find a User by its username in a Collection
 - As a user, I want to be able to change the username, password or website to a User
 - As a user, I want to see the date that I added a User to a collection
+
+## Image Citations:
+- SaveIcon: https://icons8.com/icon/13279/save
+- LoadIcon: https://icons8.com/icon/RLPVoj6CHEpb/load
