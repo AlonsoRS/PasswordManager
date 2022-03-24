@@ -43,6 +43,30 @@ public class CollectionManager {
         return result;
     }
 
+    //EFFECTS: Returns all New Collections with only found Users
+    public ArrayList<Collection> findUserReturnNewCollections(String searchUsername) {
+        ArrayList<Collection> result = new ArrayList<>();
+
+        for (Collection each : list) {
+            ArrayList<User> temp = each.getUserByUsername(searchUsername);
+            if (!temp.isEmpty()) {
+                result.add(createCollectionFromUsers(each.getCollectionName(), temp));
+            }
+        }
+
+        return result;
+    }
+
+    // EFFECTS: returns a collection with given users and collectionName
+    private Collection createCollectionFromUsers(String collectionName, ArrayList<User> users) {
+        Collection collection = new Collection(collectionName);
+        for (User user : users) {
+            collection.addUser(user);
+        }
+        return collection;
+    }
+
+
     // EFFECTS: returns Collection that matches collectionName in list
     //          if Collection is not found, return null
     public Collection findCollection(String collectionName) {

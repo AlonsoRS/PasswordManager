@@ -71,14 +71,13 @@ public class ManageModel {
     // EFFECTS: Returns Collections with Users that match username.
     //          If none found, return null
     public ArrayList<Collection> searchUser(String username) {
-        ArrayList<Collection> found = manager.findUser(username);
+        ArrayList<Collection> found = manager.findUserReturnNewCollections(username);
         if (found.isEmpty()) {
             return null;
         }
         return found;
     }
 
-//\
 
     //MODIFIES: this
     //EFFECT: if no Collections have been added or Collection is not found, return
