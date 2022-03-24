@@ -76,6 +76,8 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         frame.setJMenuBar(menuBar);
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays background image
     private void displayBackgroundImage() {
         frame.remove(panel);
         panel = new JPanel(new BorderLayout());
@@ -131,7 +133,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
 
 
     // MODIFIES: this
-    //EFFECTS: displays interface on screen
+    //EFFECTS: displays GUI on screen
     //Code taken from ButtonDemo class in:
     //https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ButtonDemoProject/src/components/ButtonDemo.java
     private void updateWindow() {
@@ -298,8 +300,6 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: displays panel to add a user to a collection
-    // Code partially extracted from TextSamplerDemo() constructor in:
-    // https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TextSamplerDemoProject/src/components/TextSamplerDemo.java
     private void displayAddUserToCollection() {
         frame.remove(panel);
         createSpringLayout();
