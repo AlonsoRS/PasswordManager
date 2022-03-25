@@ -16,10 +16,10 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
     public static final int SEPARATION_BETWEEN_FIELDS = 40;
-    public static final int ICON_DIMENSION = 30;
     ManageModel manager;
     JFrame frame;
     JPanel panel;
+    JMenuBar menuBar;
     SpringLayout springLayout;
 
     JTextField collectionField;
@@ -61,12 +61,11 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: Creates MenuBar with Menus and Items
-    // Code taken from createAndShowGUI() in
+    // Code partially taken from createAndShowGUI() in
     // https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TopLevelDemoProject/src/components/TopLevelDemo.java
     private void createMenu() {
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
         menuBar.setOpaque(true);
-        menuBar.setBackground(new Color(154, 165, 127));
         menuBar.setPreferredSize(new Dimension(200, 40));
         JMenu optionsMenu = new JMenu("Options");
         JMenu fileMenu = new JMenu("File");
@@ -81,11 +80,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     private void displayBackgroundImage() {
         frame.remove(panel);
         panel = new JPanel(new BorderLayout());
-        ImageIcon backgroundIMG = new ImageIcon("./data/background.png");
-        Image temp = backgroundIMG.getImage();
-        temp = temp.getScaledInstance(1000, 650, Image.SCALE_SMOOTH);
-        backgroundIMG = new ImageIcon(temp);
-        JLabel label = new JLabel(backgroundIMG);
+        JLabel label = new JLabel(createImageIcon("./data/background.png"));
         panel.add(label);
         frame.add(panel);
     }
@@ -107,33 +102,24 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         item = new JMenuItem("Search Users by username");
         item.addActionListener(this);
         optionsMenu.add(item);
-        item = new JMenuItem("Save to File", createSaveIcon());
+        item = new JMenuItem("Save to File", createImageIcon("./data/saveIcon.png"));
         item.addActionListener(this);
         fileMenu.add(item);
-        item = new JMenuItem("Load from File", createLoadIcon());
+        item = new JMenuItem("Load from File", createImageIcon("./data/loadIcon.png"));
         item.addActionListener(this);
         fileMenu.add(item);
     }
 
-    // EFFECTS: creates save icon and returns it as ImageIcon
-    private ImageIcon createSaveIcon() {
-        ImageIcon saveIcon = new ImageIcon("./data/saveIcon.png");
-        Image resizedIcon =  saveIcon.getImage();
-        resizedIcon = resizedIcon.getScaledInstance(ICON_DIMENSION, ICON_DIMENSION,  java.awt.Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedIcon);
-    }
 
-    // EFFECTS: creates load icon and returns it as ImageIcon
-    private ImageIcon createLoadIcon() {
-        ImageIcon loadIcon = new ImageIcon("./data/loadIcon.png");
-        Image resizedIcon =  loadIcon.getImage();
-        resizedIcon = resizedIcon.getScaledInstance(ICON_DIMENSION, ICON_DIMENSION,  java.awt.Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedIcon);
+    // REQUIRES: location exists in ./data directory
+    // EFFECTS: returns ImageIcon with image of given location
+    private ImageIcon createImageIcon(String location) {
+        return new ImageIcon(location);
     }
 
 
     // MODIFIES: this
-    //EFFECTS: displays GUI on screen
+    // EFFECTS: displays GUI on screen
     //Code taken from ButtonDemo class in:
     //https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ButtonDemoProject/src/components/ButtonDemo.java
     private void updateWindow() {
