@@ -34,9 +34,11 @@ public class Collection {
     }
 
     // MODIFIES: this
-    // EFFECT: adds newUser to Users
+    // EFFECT: adds newUser to Users and logs the event
     public void addUser(User newUser) {
         users.add(newUser);
+        EventLog.getInstance().logEvent(new Event("Added User \""
+                + newUser.getUsername() + "\" to the \"" + getCollectionName() + "\" Collection"));
     }
 
     // EFFECTS: returns all the Users in Collection that have usernameSearch as their username
@@ -70,5 +72,11 @@ public class Collection {
         }
 
         return jsonArray;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds user to collection but doesn't log the event
+    public void addUserNoLogEvent(User user) {
+        users.add(user);
     }
 }

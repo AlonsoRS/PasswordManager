@@ -115,7 +115,7 @@ public class ManageModel {
 
     //EFFECTS: returns Collections in format for data, if there is no data available returns null
     public ArrayList<Object [][]> getCollectionsInDataFormat(ArrayList<Collection> collections) {
-        if (collections.isEmpty()) {
+        if (collections.isEmpty() || collections == null) {
             return null;
         }
         ArrayList result = new ArrayList<Object [][]>();

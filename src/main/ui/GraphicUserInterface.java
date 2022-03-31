@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.User;
 import model.Collection;
 
@@ -11,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 
+// This class in responsible for the graphic interface of the program
 
 public class GraphicUserInterface extends JFrame implements ActionListener {
     public static final int WIDTH = 1000;
@@ -32,12 +35,11 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     JLabel passwordFieldLabel;
     JLabel websiteFieldLabel;
 
-
-
     public GraphicUserInterface() {
         initializeFields();
         initializeGraphics();
         updateWindow();
+
 
     }
 
@@ -50,6 +52,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         initializeFrame();
         createMenu();
         displayBackgroundImage();
+
 
     }
 
@@ -102,6 +105,9 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         item = new JMenuItem("Search Users by username");
         item.addActionListener(this);
         optionsMenu.add(item);
+        item = new JMenuItem("Quit");
+        item.addActionListener(this);
+        optionsMenu.add(item);
         item = new JMenuItem("Save to File", createImageIcon("./data/saveIcon.png"));
         item.addActionListener(this);
         fileMenu.add(item);
@@ -136,7 +142,8 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     private void initializeFrame() {
         frame = new JFrame("Password Manager");
         frame.setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
     }
 
     // EFFECTS: returns true if action event comes from an option in the menu
@@ -146,7 +153,8 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
                 || ae.getActionCommand().equals("Add a new user to a Collection")
                 || ae.getActionCommand().equals("Search Users by username")
                 || ae.getActionCommand().equals("Save to File")
-                || ae.getActionCommand().equals("Load from File");
+                || ae.getActionCommand().equals("Load from File")
+                || ae.getActionCommand().equals("Quit");
     }
 
     @Override
@@ -184,12 +192,32 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
             case ("Search Users by username"):
                 displaySearchUsersByUsername();
                 break;
+            case ("Quit"):
+                quit();
+                break;
             case ("Save to File"):
                 saveToFile();
                 break;
             case ("Load from File"):
                 loadFromFile();
                 break;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: quits application
+    private void quit() {
+        printEventLog(EventLog.getInstance());
+        System.exit(0);
+    }
+
+
+    // EFFECTS: prints event log in console
+    // Code taken from print log method in ScreenPrinter class in:
+    // https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
+    private void printEventLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.toString() + "\n");
         }
     }
 
@@ -440,6 +468,5 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         frame.add(panel);
         updateWindow();
     }
-
 
 }

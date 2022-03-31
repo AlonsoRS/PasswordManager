@@ -23,15 +23,33 @@ P2:
 - As a user, I want to be able to save my Collections to file
 - As a user, I want to be able to load my Collections from file
 
+P3:
+- Implemented a graphic user interface for all user stories
 
 
 
-## Future User stories:
-- As a user, i want to easily copy to my clipboard the website from a User
-- As a user, i want to generate a random Password for a User
-- As a user, I want to find a User by its username in a Collection
-- As a user, I want to be able to change the username, password or website to a User
-- As a user, I want to see the date that I added a User to a collection
+## Phase 4: Task 2
+Wed Mar 30 17:58:19 PDT 2022
+Collection "Leisure" was created
+
+Wed Mar 30 17:58:23 PDT 2022
+Collection "Banking" was created
+
+Wed Mar 30 17:58:30 PDT 2022
+Added User "Maria" to the "Banking" Collection
+
+Wed Mar 30 17:58:34 PDT 2022
+Added User "Jhon" to the "Banking" Collection
+
+Wed Mar 30 17:58:50 PDT 2022
+Added User "Emilly" to the "Leisure" Collection
+
+Wed Mar 30 17:58:57 PDT 2022
+User "Lucas24" was not found in any Collection
+
+Wed Mar 30 17:59:01 PDT 2022
+User "Emilly" was found
+
 
 ## Image Citations:
 - SaveIcon: https://icons8.com/icon/13279/save

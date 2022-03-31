@@ -17,9 +17,11 @@ public class CollectionManager {
     }
 
     //MODIFIES: this
-    //EFFECTS: adds newCollection to the list of Collections
+    //EFFECTS: adds newCollection to the list of Collections and logs the event
     public void addCollection(Collection newCollection) {
         list.add(newCollection);
+        EventLog.getInstance().logEvent(new Event("Collection \""
+                + newCollection.getCollectionName() + "\" was created"));
 
     }
 
@@ -43,7 +45,7 @@ public class CollectionManager {
         return result;
     }
 
-    //EFFECTS: Returns all New Collections with only found Users
+    //EFFECTS: Returns all New Collections with only found Users and logs the event
     public ArrayList<Collection> findUserReturnNewCollections(String searchUsername) {
         ArrayList<Collection> result = new ArrayList<>();
 
@@ -54,6 +56,13 @@ public class CollectionManager {
             }
         }
 
+        if (result.isEmpty()) {
+            EventLog.getInstance().logEvent(new Event("User \"" + searchUsername
+                    + "\" was not found in any Collection"));
+        } else {
+            EventLog.getInstance().logEvent(new Event("User \"" + searchUsername + "\" was found"));
+        }
+
         return result;
     }
 
@@ -61,7 +70,7 @@ public class CollectionManager {
     private Collection createCollectionFromUsers(String collectionName, ArrayList<User> users) {
         Collection collection = new Collection(collectionName);
         for (User user : users) {
-            collection.addUser(user);
+            collection.addUserNoLogEvent(user);
         }
         return collection;
     }
