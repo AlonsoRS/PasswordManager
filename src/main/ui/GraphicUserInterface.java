@@ -35,6 +35,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
     JLabel passwordFieldLabel;
     JLabel websiteFieldLabel;
 
+    // EFFECTS: constructs the graphic interface
     public GraphicUserInterface() {
         initializeFields();
         initializeGraphics();
@@ -157,7 +158,10 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
                 || ae.getActionCommand().equals("Quit");
     }
 
+
+
     @Override
+    // EFFECTS: chooses what menu or button option to do based on what the user selected
     public void actionPerformed(ActionEvent ae) {
         if (isOptionMenu(ae)) {
             chooseOptionMenu(ae);
@@ -204,7 +208,7 @@ public class GraphicUserInterface extends JFrame implements ActionListener {
         }
     }
 
-    // MODIFIES: this
+
     // EFFECTS: quits application
     private void quit() {
         printEventLog(EventLog.getInstance());

@@ -91,7 +91,7 @@ public class ManageModel {
         return manager.findCollection(chosenCollection);
     }
 
-//
+
 
     // MODIFIES: this
     // EFFECT: creates new User

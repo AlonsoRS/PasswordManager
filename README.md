@@ -50,6 +50,21 @@ User "Lucas24" was not found in any Collection
 Wed Mar 30 17:59:01 PDT 2022
 User "Emilly" was found
 
+## Phase 4: Task 3
+There are many refactorings options that could improve the design of this project: 
+- The Password Class could be refactored to be a field of type String of the User Class because the only methods of Password are to return or modify its 
+only field which is a String. 
+
+- Additional Classes could be implemented to increase cohesion of the GraphicUserInterface Class. For instance, a Class 
+called Button and a Class called MenuOption could be used to manage when a button is pressed and when an option is chosen 
+respectively. This would allow for multiple buttons to be named the same because, as of now, the only way of differentiating 
+buttons or options is through their name (i.e. Search User). This would be useful if we want a button or option to perform
+the same operation but with a different implementation
+
+- Furthermore, a bidirectional relationship could be added between Collection and User (add a field of type Collection in User). 
+This would make it easier to identify what Collection a specific User belongs to. 
+
+
 
 ## Image Citations:
 - SaveIcon: https://icons8.com/icon/13279/save
